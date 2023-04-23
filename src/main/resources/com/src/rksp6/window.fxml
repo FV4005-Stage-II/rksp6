@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane fx:controller="com.src.rksp6.Controller" accessibleRole="CHECK_BOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <ComboBox fx:id="choice" onAction="#select" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="35.0" />
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="840.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="Load" mnemonicParsing="false" onAction="#load" text="load" />
+                  <MenuItem fx:id="Save" mnemonicParsing="false" onAction="#save" text="save" />
+          </items>
+        </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <AnchorPane layoutX="14.0" layoutY="123.0" prefHeight="460.0" prefWidth="810.0" style="-fx-background-color: #fff;">
+         <children>
+            <Pane fx:id="FieldDraw" onMouseClicked="#MouseClickedDrawShape" prefHeight="460.0" prefWidth="810.0" />
+         </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>
