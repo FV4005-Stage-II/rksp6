@@ -46,7 +46,8 @@ public class Controller {
 
     @FXML
     void initialize() {
-        // Tesak is the best!
+        // Tesak is the best!!!!
+        // следы зубоб на гриндерах
         model = new Conveyor();
         sol = new SaveOrLoad();
         choice.setItems(choiceValue);
