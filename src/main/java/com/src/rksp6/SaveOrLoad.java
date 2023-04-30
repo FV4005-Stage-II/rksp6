@@ -107,7 +107,6 @@ public class SaveOrLoad {
         OutputStreamWriter osw = new OutputStreamWriter(os);
         XStream xstream = new XStream();
         String dataXml = xstream.toXML(shapes);
-        System.out.println(dataXml);
         osw.write(dataXml);
         osw.flush();
         osw.close();

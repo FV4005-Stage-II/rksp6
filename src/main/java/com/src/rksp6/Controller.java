@@ -46,11 +46,11 @@ public class Controller {
 
     @FXML
     void initialize() {
-         model = new Conveyor(FieldDraw);
-         sol = new SaveOrLoad();
-         choice.setItems(choiceValue);
-         choice.getSelectionModel().selectFirst();
-         type = choice.getSelectionModel().getSelectedItem().toString();
+        model = new Conveyor();
+        sol = new SaveOrLoad();
+        choice.setItems(choiceValue);
+        choice.getSelectionModel().selectFirst();
+        type = choice.getSelectionModel().getSelectedItem().toString();
     }
 
     @FXML

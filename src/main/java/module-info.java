@@ -8,5 +8,6 @@ module com.src.rksp6 {
     requires xstream;
 
     opens com.src.rksp6 to javafx.fxml;
+    opens com.src.rksp6.object;
     exports com.src.rksp6;
 }
