@@ -6,9 +6,7 @@ import java.io.Serializable;
 
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
-import javafx.css.Size;
 import javafx.scene.Node;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
