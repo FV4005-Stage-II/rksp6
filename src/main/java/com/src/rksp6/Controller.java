@@ -46,6 +46,7 @@ public class Controller {
 
     @FXML
     void initialize() {
+        // Tesak is the best!
         model = new Conveyor();
         sol = new SaveOrLoad();
         choice.setItems(choiceValue);
