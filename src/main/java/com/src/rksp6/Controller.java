@@ -5,8 +5,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,9 +48,9 @@ public class Controller {
     void initialize() {
          model = new Conveyor(FieldDraw);
          sol = new SaveOrLoad();
-        choice.setItems(choiceValue);
-        choice.getSelectionModel().selectFirst();
-        type = choice.getSelectionModel().getSelectedItem().toString();
+         choice.setItems(choiceValue);
+         choice.getSelectionModel().selectFirst();
+         type = choice.getSelectionModel().getSelectedItem().toString();
     }
 
     @FXML
