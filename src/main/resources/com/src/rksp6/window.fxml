@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane accessibleRole="CHECK_BOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.src.rksp6.Controller">
    <children>
@@ -44,8 +46,13 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <ComboBox fx:id="choiceTCP" layoutX="20.0" layoutY="14.0" onAction="#selectTCP" prefWidth="150.0" />
-                        <Pane fx:id="FieldDrawTCP" layoutX="20.0" layoutY="53.0" onMouseClicked="#MouseClickedDrawShapeTCP" prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: E0E0E0;" />
-                        <ToggleButton fx:id="StateTCP" layoutX="190.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#setState" text="ДО СВЯЗИ" />
+                        <Pane fx:id="FieldDrawTCP" layoutX="20.0" layoutY="53.0" onMouseClicked="#MouseClickedDrawShapeTCP" prefHeight="476.0" prefWidth="505.0" style="-fx-background-color: E0E0E0;" />
+                        <ToggleButton fx:id="StateTCP" layoutX="180.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#setState" text="ДО СВЯЗИ" />
+                        <Button fx:id="BtnShapesRequest" layoutX="261.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#shapesRequest" text="запрос фигур" />
+                        <Button fx:id="BtnClearServerShapes" layoutX="360.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#clearServerShapes" text="очистка" />
+                        <Button fx:id="BtnRequestNames" layoutX="429.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#requestNames" text="запрос имен" />
+                        <Button fx:id="BtnRequestQuantity" layoutX="525.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#requestQuantity" text="количество" />
+                        <TextFlow fx:id="FieldMessage" layoutX="531.0" layoutY="54.0" prefHeight="475.0" prefWidth="289.0" />
                      </children>
                   </AnchorPane>
             </content>

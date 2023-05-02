@@ -10,11 +10,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 
 import com.src.rksp6.object.*;
@@ -46,6 +49,22 @@ public class Controller {
 
     @FXML
     private ToggleButton StateTCP;
+
+    @FXML
+    private Button BtnShapesRequest;
+
+    @FXML
+    private Button BtnClearServerShapes;
+
+    @FXML
+    private Button BtnRequestNames;
+
+    @FXML
+    private Button BtnRequestQuantity;
+
+    @FXML
+    private TextFlow FieldMessage;
+    ///////////////////////////////
     private Conveyor model = null;
     private SaveOrLoad sol = null;
     private String type = null;
@@ -66,6 +85,10 @@ public class Controller {
 
         type = choice.getSelectionModel().getSelectedItem().toString();
         typeTCP = choice.getSelectionModel().getSelectedItem().toString();
+
+        Text t1 = new Text("хуй\n");
+        Text t2 = new Text("залупа\n");
+        FieldMessage.getChildren().addAll(t1, t2);
 
     }
 
@@ -137,4 +160,23 @@ public class Controller {
          }
      }
 
+    @FXML
+    void shapesRequest(MouseEvent event) {
+
+    }
+
+    @FXML
+    void requestNames(MouseEvent event) {
+
+    }
+
+    @FXML
+    void requestQuantity(MouseEvent event) {
+
+    }
+
+    @FXML
+    void clearServerShapes(MouseEvent event) {
+
+    }
 }
