@@ -2,6 +2,7 @@ package com.src.rksp6;
 
 import java.io.*;
 
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -69,12 +70,10 @@ public class Controller {
     private SaveOrLoad sol = null;
     private String type = null;
     private String typeTCP = null;
-
+    private Client client;
 
     @FXML
     void initialize() {
-        // Tesak is the best!!!!
-        // следы зубоб на гриндерах
         model = new Conveyor();
         sol = new SaveOrLoad();
 
@@ -86,10 +85,7 @@ public class Controller {
         type = choice.getSelectionModel().getSelectedItem().toString();
         typeTCP = choice.getSelectionModel().getSelectedItem().toString();
 
-        Text t1 = new Text("хуй\n");
-        Text t2 = new Text("залупа\n");
-        FieldMessage.getChildren().addAll(t1, t2);
-
+        client = new Client();
     }
 
     @FXML
@@ -102,10 +98,29 @@ public class Controller {
     }
     @FXML
     void setState(MouseEvent event) {
-        if (StateTCP.isSelected())
+        if (StateTCP.isSelected()) {
+            boolean answer = false;
+
+            if(!client.getConnectionStatus())
+                answer = client.startConnection("127.0.0.1", 6666);
+
+            if(!answer) {
+                StateTCP.setSelected(false);
+                return;
+            }
             StateTCP.setText("НА СВЯЗИ");
-        else
+        } else {
+            boolean answer = false;
+            if(client.getConnectionStatus())
+                answer = client.stopConnection();
+
+            if(!answer) {
+                StateTCP.setSelected(true);
+                return;
+            }
+
             StateTCP.setText("ДО СВЯЗИ");
+        }
     }
     @FXML
     void MouseClickedDrawShape(MouseEvent event) throws IOException, ClassNotFoundException {

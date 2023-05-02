@@ -29,6 +29,7 @@ public class Server {
             inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             dataOutputStream = new DataOutputStream(clientSocket.getOutputStream());
             var shapeFactory = new Conveyor();
+            System.out.println("Connection");
 
             String clientShapeData;
             while((clientShapeData = inputReader.readLine()) != null){
@@ -62,5 +63,24 @@ public class Server {
         }
 
         return data;
+    }
+
+    public void stop() throws IOException {
+        inputReader.close();
+        dataOutputStream.close();
+        serverSocket.close();
+        clientSocket.close();
+    }
+
+    public static void main(String[] args){
+        while(true) {
+            var server = new Server(6666);
+            server.start();
+            try {
+                server.stop();
+            } catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }
     }
 }
