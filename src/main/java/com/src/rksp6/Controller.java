@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -36,13 +37,20 @@ public class Controller {
 
     @FXML
     private MenuItem Save;
-
     @FXML
     private Pane FieldDraw;
+    @FXML
+    private ComboBox<String> choiceTCP;
+    @FXML
+    private Pane FieldDrawTCP;
 
+    @FXML
+    private ToggleButton StateTCP;
      private Conveyor model = null;
      private SaveOrLoad sol = null;
     private String type = null;
+    private String typeTCP = null;
+
 
     @FXML
     void initialize() {
@@ -50,24 +58,47 @@ public class Controller {
         // следы зубоб на гриндерах
         model = new Conveyor();
         sol = new SaveOrLoad();
+
         choice.setItems(choiceValue);
         choice.getSelectionModel().selectFirst();
+        choiceTCP.setItems(choiceValue);
+        choiceTCP.getSelectionModel().selectFirst();
+
         type = choice.getSelectionModel().getSelectedItem().toString();
+        typeTCP = choice.getSelectionModel().getSelectedItem().toString();
+
     }
 
     @FXML
     void select(ActionEvent event) {
         type = choice.getSelectionModel().getSelectedItem().toString();
     }
+    @FXML
+    void selectTCP(ActionEvent event) {
+        typeTCP = choiceTCP.getSelectionModel().getSelectedItem().toString();
+    }
+    @FXML
+    void setState(MouseEvent event) {
 
+        StateTCP.setOnAction (event1 -> {
+            if (StateTCP.isSelected())
+                StateTCP.setText("НА СВЯЗИ");
+            else
+                StateTCP.setText("ДО СВЯЗИ");
+        });
+    }
     @FXML
     void MouseClickedDrawShape(MouseEvent event) throws IOException, ClassNotFoundException {
         double x = event.getX();
         double y = event.getY();
-         sol.addShape(this.model.createShape(type, x, y));
-         FieldDraw.getChildren().add(sol.gShapes().get(sol.gShapes().size() - 1).drawObject());
+        sol.addShape(this.model.createShape(type, x, y));
+        FieldDraw.getChildren().add(sol.gShapes().get(sol.gShapes().size() - 1).drawObject());
     }
-
+    @FXML
+    void MouseClickedDrawShapeTCP(MouseEvent event) {
+        double x = event.getX();
+        double y = event.getY();
+    }
      @FXML
      void load(ActionEvent event) {
          FileChooser fileChooser = new FileChooser();
@@ -108,4 +139,5 @@ public class Controller {
              }
          }
      }
+
 }

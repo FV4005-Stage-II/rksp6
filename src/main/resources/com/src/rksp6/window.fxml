@@ -4,17 +4,14 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:controller="com.src.rksp6.Controller"
-            accessibleRole="CHECK_BOX"
-            maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="840.0"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane accessibleRole="CHECK_BOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.src.rksp6.Controller">
    <children>
-      <ComboBox fx:id="choice" onAction="#select" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="35.0" />
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="840.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -30,10 +27,30 @@
         </Menu>
       </menus>
     </MenuBar>
-      <AnchorPane layoutX="14.0" layoutY="123.0" prefHeight="460.0" prefWidth="810.0" style="-fx-background-color: #fff;">
-         <children>
-            <Pane fx:id="FieldDraw" onMouseClicked="#MouseClickedDrawShape" prefHeight="460.0" prefWidth="810.0" />
-         </children>
-    </AnchorPane>
+      <TabPane layoutY="23.0" prefHeight="576.0" prefWidth="840.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="lab1">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="choice" layoutX="20.0" layoutY="14.0" onAction="#select" prefWidth="150.0" />
+                        <Pane fx:id="FieldDraw" layoutX="20.0" layoutY="53.0" onMouseClicked="#MouseClickedDrawShape" prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: E0E0E0;" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+          <Tab text="TCP">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="choiceTCP" layoutX="20.0" layoutY="14.0" onAction="#selectTCP" prefWidth="150.0" />
+                        <Pane fx:id="FieldDrawTCP" layoutX="20.0" layoutY="53.0" onMouseClicked="#MouseClickedDrawShapeTCP" prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: E0E0E0;" />
+                        <ToggleButton fx:id="StateTCP" layoutX="190.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#setState" text="ДО СВЯЗИ" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
   </children>
 </AnchorPane>
