@@ -83,7 +83,7 @@ public class Controller {
         choiceTCP.getSelectionModel().selectFirst();
 
         type = choice.getSelectionModel().getSelectedItem().toString();
-        typeTCP = choice.getSelectionModel().getSelectedItem().toString();
+        typeTCP = choiceTCP.getSelectionModel().getSelectedItem().toString();
 
         client = new Client();
     }
@@ -134,6 +134,11 @@ public class Controller {
     void MouseClickedDrawShapeTCP(MouseEvent event) {
         double x = event.getX();
         double y = event.getY();
+        var type = choiceTCP.getSelectionModel().getSelectedItem().toString();
+        var str = type + ";" + x + ";" + y;
+
+        if(client.getConnectionStatus())
+            client.sendMessage(str, "shape.bin", 1024);
     }
      @FXML
      void load(ActionEvent event) {

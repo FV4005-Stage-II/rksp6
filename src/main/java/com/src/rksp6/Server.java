@@ -2,10 +2,7 @@ package com.src.rksp6;
 
 import com.src.rksp6.object.Conveyor;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -46,10 +43,29 @@ public class Server {
         var shape = shapeFactory.createShape((String)shapeData[0],
                 (double)shapeData[1],
                 (double)shapeData[2]);
-
+        System.out.println(clientShapeData);
         try {
+            dataOutputStream.write(new byte[0]);
             sol.save(fileName);
         } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void sendFile(String path, int bufferSize) {
+        var file = new File(path);
+
+        try(var fileInputStream = new FileInputStream(file)) {
+
+            dataOutputStream.writeLong(file.length());
+
+            var buffer = new byte[bufferSize];
+            int bytes = 0;
+            while ((bytes = fileInputStream.read(buffer)) != -1) {
+                dataOutputStream.write(buffer, 0, bytes);
+                dataOutputStream.flush();
+            }
+        } catch (Exception ex){
             ex.printStackTrace();
         }
     }
@@ -58,15 +74,19 @@ public class Server {
         var data = new Object[3];
         var splitData = shapeDataString.split(";");
 
-        for(var i = 0; i < 3; ++i){
-            data[i] = splitData[i];
+        if(splitData.length < 3)
+            return data;
+
+        data[0] = splitData[0];
+        for(var i = 1; i < 3; ++i){
+            data[i] = Double.parseDouble(splitData[i]);
         }
 
         return data;
     }
 
     public void stop() throws IOException {
-        inputReader.close();
+         inputReader.close();
         dataOutputStream.close();
         serverSocket.close();
         clientSocket.close();

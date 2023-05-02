@@ -30,13 +30,13 @@ public class Client {
 
     public String sendMessage(String message, String fileName, int bufferSize) {
         out.println(message);
-        try {
+        /*try {
             message = in.readLine();
-            receiveFile(fileName, bufferSize);
+            //receiveFile(fileName, bufferSize);
             System.out.println("File has been written.");
-        } catch (IOException ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
-        }
+        }*/
         return message;
     }
 
