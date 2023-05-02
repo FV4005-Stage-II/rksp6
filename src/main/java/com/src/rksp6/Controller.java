@@ -106,6 +106,7 @@ public class Controller {
 
             if(!answer) {
                 StateTCP.setSelected(false);
+                FieldMessage.getChildren().add(new Text("нет подключения\n"));
                 return;
             }
             StateTCP.setText("НА СВЯЗИ");

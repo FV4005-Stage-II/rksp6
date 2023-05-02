@@ -75,9 +75,11 @@ public class Server {
     public static void main(String[] args){
         while(true) {
             var server = new Server(6666);
+            System.out.println("server init");
             server.start();
             try {
                 server.stop();
+                System.out.println("server stop");
             } catch (Exception ex){
                 ex.printStackTrace();
             }
