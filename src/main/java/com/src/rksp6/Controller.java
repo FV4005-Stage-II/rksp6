@@ -46,8 +46,8 @@ public class Controller {
 
     @FXML
     private ToggleButton StateTCP;
-     private Conveyor model = null;
-     private SaveOrLoad sol = null;
+    private Conveyor model = null;
+    private SaveOrLoad sol = null;
     private String type = null;
     private String typeTCP = null;
 
@@ -79,13 +79,10 @@ public class Controller {
     }
     @FXML
     void setState(MouseEvent event) {
-
-        StateTCP.setOnAction (event1 -> {
-            if (StateTCP.isSelected())
-                StateTCP.setText("НА СВЯЗИ");
-            else
-                StateTCP.setText("ДО СВЯЗИ");
-        });
+        if (StateTCP.isSelected())
+            StateTCP.setText("НА СВЯЗИ");
+        else
+            StateTCP.setText("ДО СВЯЗИ");
     }
     @FXML
     void MouseClickedDrawShape(MouseEvent event) throws IOException, ClassNotFoundException {
