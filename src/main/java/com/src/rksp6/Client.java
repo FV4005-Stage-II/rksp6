@@ -62,7 +62,7 @@ public class Client {
             clientSocket.close();
             out.close();
             in.close();
-
+            isConnected = false;
             return true;
         } catch (IOException ex){
             ex.printStackTrace();
