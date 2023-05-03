@@ -3,6 +3,7 @@ package com.src.rksp6;
 import java.io.*;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -182,22 +183,24 @@ public class Controller {
      }
 
     @FXML
-    void shapesRequest(MouseEvent event) {
-
+    void shapesRequest(MouseEvent event) throws Exception {
+        //FieldDrawTCP.getChildren().add(sol.loadBinTCP("receivedShapes.bin").drawObject());
     }
 
     @FXML
     void requestNames(MouseEvent event) {
-
+        String names = "\n";
+        FieldMessage.getChildren().addAll(new Text(names));
     }
 
     @FXML
     void requestQuantity(MouseEvent event) {
-
+        String quantity = "\n";
+        FieldMessage.getChildren().addAll(new Text(quantity));
     }
 
     @FXML
     void clearServerShapes(MouseEvent event) {
-
+        FieldMessage.getChildren().addAll(new Text("Сервер чист\n"));
     }
 }
