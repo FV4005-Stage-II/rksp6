@@ -208,14 +208,22 @@ public class Controller {
 
     @FXML
     void requestQuantity(MouseEvent event) throws Exception {
-        /*String quantity = "\n";
-        FieldMessage.getChildren().addAll(new Text(quantity));*/
         client.sendMessage(ServerRequest.QUANTITY.toString());
+        FileInputStream fis = new FileInputStream("receivedQUANTITY.bin");
+        byte[] buffer = new byte[10];
+        StringBuilder sb = new StringBuilder();
+        while (fis.read(buffer) != -1) {
+            sb.append(new String(buffer));
+            buffer = new byte[10];
+        }
+        fis.close();
+        String quantity = sb.toString();
+        FieldMessage.getChildren().addAll(new Text(quantity));
     }
 
     @FXML
     void clearServerShapes(MouseEvent event) throws Exception {
-        //FieldMessage.getChildren().addAll(new Text("Сервер чист\n"));
         client.sendMessage(ServerRequest.CLEAR.toString());
+        FieldMessage.getChildren().addAll(new Text("Сервер чист\n"));
     }
 }

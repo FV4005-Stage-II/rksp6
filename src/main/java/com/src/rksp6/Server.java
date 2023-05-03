@@ -42,10 +42,12 @@ public class Server {
                         sendFile("SHAPES.bin", 1024);
                         break;
                     case("NAMES"):
-                        writeToFile(serialization.namesShapes());
+                        writeToFile(serialization.namesShapes(), "NAMES.bin");
                         sendFile("NAMES.bin", 1024);
                         break;
                     case("QUANTITY"):
+                        writeToFile(new String[] {Integer.toString(serialization.getShapes().size())},
+                                "QUANTITY.bin");
                         sendFile("QUANTITY.bin", 1024);
                         break;
                     case("CLEAR"):
@@ -109,8 +111,8 @@ public class Server {
         return data;
     }
 
-    private void writeToFile(String[] strings){
-        File fout = new File("NAMES.bin");
+    private void writeToFile(String[] strings, String fileName){
+        File fout = new File(fileName);
         try (FileOutputStream fos = new FileOutputStream(fout);
              BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));) {
             for (String s : strings) {
