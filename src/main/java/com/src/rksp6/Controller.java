@@ -185,9 +185,9 @@ public class Controller {
     @FXML
     void shapesRequest(MouseEvent event) throws Exception {
         client.sendMessage(ServerRequest.SHAPES.toString());
-        var shapes = sol.loadBinsTCP("receivedShape.bin");
-        for(var shape : shapes){
-            shape.drawObject();
+        var shapes = sol.loadBinsTCP("receivedSHAPES.bin");
+        for(var shape : shapes) {
+            FieldDrawTCP.getChildren().add(shape.drawObject());
         }
     }
 
