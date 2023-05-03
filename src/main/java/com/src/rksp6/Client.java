@@ -34,7 +34,7 @@ public class Client {
     }
 
     private void receiveFile(String path, int bufferSize) {
-        try(var fileOutputStream = new FileOutputStream(path, true)) {
+        try(var fileOutputStream = new FileOutputStream(path)) {
             int bytes = 0;
             // Read file size
             long size = in.readLong();

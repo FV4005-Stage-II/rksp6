@@ -48,6 +48,7 @@ public class Server {
                 (double)shapeData[1],
                 (double)shapeData[2]);
         System.out.println(clientShapeData);
+        System.out.println(shape.string());
         try {
             serialization.Serialize(shape, fileName);
             sendFile("shape.bin", 1024);

@@ -130,7 +130,7 @@ public class Controller {
         FieldDraw.getChildren().add(sol.gShapes().get(sol.gShapes().size() - 1).drawObject());
     }
     @FXML
-    void MouseClickedDrawShapeTCP(MouseEvent event) {
+    void MouseClickedDrawShapeTCP(MouseEvent event) throws Exception {
         double x = event.getX();
         double y = event.getY();
         var type = choiceTCP.getSelectionModel().getSelectedItem().toString();
@@ -138,6 +138,7 @@ public class Controller {
 
         if(client.getConnectionStatus())
             client.sendShape(str);
+        FieldDrawTCP.getChildren().add(sol.loadBinTCP("receivedShape.bin").drawObject());
     }
      @FXML
      void load(ActionEvent event) {
