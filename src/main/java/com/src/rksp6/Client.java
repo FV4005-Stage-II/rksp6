@@ -33,6 +33,11 @@ public class Client {
         receiveFile("receivedShape.bin", 1024);
     }
 
+    public String sendMessage(String message) throws IOException{
+        out.println(message);
+        return in.readUTF();
+    }
+
     private void receiveFile(String path, int bufferSize) {
         try(var fileOutputStream = new FileOutputStream(path)) {
             int bytes = 0;

@@ -37,13 +37,13 @@ public class Server {
             String fileName = "shape.bin";
             while((clientShapeData = inputReader.readLine()) != null){
                 switch(clientShapeData){
-                    case ("GET_SHAPES"):
+                    case ("SHAPES"):
                         sendMessage("shapes");
                         break;
-                    case("GET_NAMES"):
+                    case("NAMES"):
                         sendMessage("names");
                         break;
-                    case("GET_QUANTITY"):
+                    case("QUANTITY"):
                         sendMessage("quantity");
                         break;
                     case("CLEAR"):
