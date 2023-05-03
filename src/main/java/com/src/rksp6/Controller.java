@@ -193,8 +193,6 @@ public class Controller {
 
     @FXML
     void requestNames(MouseEvent event) throws Exception {
-        /*String names = "\n";
-        FieldMessage.getChildren().addAll(new Text(names));*/
         client.sendMessage(ServerRequest.NAMES.toString());
         FileInputStream fis = new FileInputStream("receivedNAMES.bin");
         byte[] buffer = new byte[10];
