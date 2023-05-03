@@ -2,7 +2,6 @@ package com.src.rksp6;
 
 import java.io.*;
 
-import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -138,7 +137,7 @@ public class Controller {
         var str = type + ";" + x + ";" + y;
 
         if(client.getConnectionStatus())
-            client.sendMessage(str, "shape.bin", 1024);
+            client.sendShape(str);
     }
      @FXML
      void load(ActionEvent event) {

@@ -1,6 +1,7 @@
 package com.src.rksp6;
 
 import com.src.rksp6.object.Conveyor;
+import com.src.rksp6.object.ServerSerialization;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -11,10 +12,12 @@ public class Server {
     private Socket clientSocket;
     private DataOutputStream dataOutputStream;
     private BufferedReader inputReader;
+    private ServerSerialization serialization;
 
     public Server(int port){
         try {
             serverSocket = new ServerSocket(port);
+            serialization = new ServerSerialization();
         } catch (Exception ex){
             ex.printStackTrace();
         }
@@ -29,24 +32,25 @@ public class Server {
             System.out.println("Connection");
 
             String clientShapeData;
+            String fileName = "shape.bin";
             while((clientShapeData = inputReader.readLine()) != null){
-                SendSerializedShape(shapeFactory, clientShapeData, "shape.bin");
+                SaveSerializedShape(shapeFactory, clientShapeData, fileName);
+
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void SendSerializedShape(Conveyor shapeFactory, String clientShapeData, String fileName) {
-        var sol = new SaveOrLoad();
+    private void SaveSerializedShape(Conveyor shapeFactory, String clientShapeData, String fileName) {
         var shapeData = getDataFromString(clientShapeData);
         var shape = shapeFactory.createShape((String)shapeData[0],
                 (double)shapeData[1],
                 (double)shapeData[2]);
         System.out.println(clientShapeData);
         try {
-            dataOutputStream.write(new byte[0]);
-            sol.save(fileName);
+            serialization.Serialize(shape, fileName);
+            sendFile("C:\\Users\\Dying\\IdeaProjects\\rksp6\\shape.bin", 1024);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

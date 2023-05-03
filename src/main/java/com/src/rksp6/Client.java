@@ -28,16 +28,9 @@ public class Client {
         return false;
     }
 
-    public String sendMessage(String message, String fileName, int bufferSize) {
-        out.println(message);
-        /*try {
-            message = in.readLine();
-            //receiveFile(fileName, bufferSize);
-            System.out.println("File has been written.");
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }*/
-        return message;
+    public void sendShape(String shape) {
+        out.println(shape);
+        receiveFile("receivedShape.bin", 1024);
     }
 
     private void receiveFile(String path, int bufferSize) {
