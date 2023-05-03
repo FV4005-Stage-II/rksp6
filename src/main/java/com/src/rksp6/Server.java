@@ -48,9 +48,10 @@ public class Server {
                 (double)shapeData[1],
                 (double)shapeData[2]);
         System.out.println(clientShapeData);
+        System.out.println(shape.string());
         try {
             serialization.Serialize(shape, fileName);
-            sendFile("C:\\Users\\Dying\\IdeaProjects\\rksp6\\shape.bin", 1024);
+            sendFile("shape.bin", 1024);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

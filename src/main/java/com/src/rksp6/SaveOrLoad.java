@@ -68,6 +68,14 @@ public class SaveOrLoad {
         ois.close();
     }
 
+    public objShape loadBinTCP(String path) throws Exception{
+        InputStream is = new FileInputStream(path);
+        ObjectInputStream ois = new ObjectInputStream(is);
+        objShape shape = (objShape) ois.readObject();
+        ois.close();
+        return shape;
+    }
+
     private void saveTxt(OutputStream os) throws IOException {
         OutputStreamWriter osw = new OutputStreamWriter(os);
         osw.write(shapes.size() + "\n");
