@@ -117,7 +117,7 @@ public class Server {
              BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));) {
             for (String s : strings) {
                 bw.write(s);
-                bw.newLine();
+                 bw.newLine();
             }
         } catch (IOException ignored) {
 
