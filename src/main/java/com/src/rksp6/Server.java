@@ -38,20 +38,19 @@ public class Server {
             while((clientShapeData = inputReader.readLine()) != null){
                 switch(clientShapeData){
                     case ("SHAPES"):
-                        sendMessage("shapes");
+                        serialization.SerializeShapes("SHAPES.bin");
+                        sendFile("SHAPES.bin", 1024);
                         break;
                     case("NAMES"):
-                        sendMessage("names");
+                        sendFile("NAMES.txt", 1024);
                         break;
                     case("QUANTITY"):
-                        sendMessage("quantity");
+                        sendFile("QUANTITY.txt", 1024);
                         break;
                     case("CLEAR"):
-                        sendMessage("clear");
                         serialization.getShapes().clear();
                         break;
                     default:
-                        System.out.println("default");
                         SaveSerializedShape(shapeFactory, clientShapeData, fileName);
                         break;
                 }
@@ -92,11 +91,6 @@ public class Server {
         } catch (Exception ex){
             ex.printStackTrace();
         }
-    }
-
-    private void sendMessage(String message) throws IOException {
-        var out = new OutputStreamWriter(clientSocket.getOutputStream());
-        out.write(message);
     }
 
     private Object[] getDataFromString(String shapeDataString){

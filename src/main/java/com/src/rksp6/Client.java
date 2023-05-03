@@ -30,12 +30,15 @@ public class Client {
 
     public void sendShape(String shape) {
         out.println(shape);
+        out.flush();
         receiveFile("receivedShape.bin", 1024);
     }
 
-    public String sendMessage(String message) throws IOException{
+    public void sendMessage(String message){
         out.println(message);
-        return in.readUTF();
+        out.flush();
+        if(!message.equals("CLEAR"))
+            receiveFile("received"+ message + ".bin", 1024);
     }
 
     private void receiveFile(String path, int bufferSize) {

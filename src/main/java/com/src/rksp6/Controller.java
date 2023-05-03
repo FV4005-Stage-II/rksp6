@@ -139,7 +139,7 @@ public class Controller {
 
         if(client.getConnectionStatus())
             client.sendShape(str);
-        FieldDrawTCP.getChildren().add(sol.loadBinTCP("receivedShape.bin").drawObject());
+        FieldDrawTCP.getChildren().add((sol.loadBinTCP("receivedShape.bin")).drawObject());
     }
      @FXML
      void load(ActionEvent event) {
@@ -184,23 +184,30 @@ public class Controller {
 
     @FXML
     void shapesRequest(MouseEvent event) throws Exception {
-        //FieldDrawTCP.getChildren().add(sol.loadBinTCP("receivedShapes.bin").drawObject());
+        client.sendMessage(ServerRequest.SHAPES.toString());
+        var shapes = sol.loadBinsTCP("receivedShape.bin");
+        for(var shape : shapes){
+            shape.drawObject();
+        }
     }
 
     @FXML
-    void requestNames(MouseEvent event) {
-        String names = "\n";
-        FieldMessage.getChildren().addAll(new Text(names));
+    void requestNames(MouseEvent event) throws Exception {
+        /*String names = "\n";
+        FieldMessage.getChildren().addAll(new Text(names));*/
+        client.sendMessage(ServerRequest.NAMES.toString());
     }
 
     @FXML
-    void requestQuantity(MouseEvent event) {
-        String quantity = "\n";
-        FieldMessage.getChildren().addAll(new Text(quantity));
+    void requestQuantity(MouseEvent event) throws Exception {
+        /*String quantity = "\n";
+        FieldMessage.getChildren().addAll(new Text(quantity));*/
+        client.sendMessage(ServerRequest.QUANTITY.toString());
     }
 
     @FXML
-    void clearServerShapes(MouseEvent event) {
-        FieldMessage.getChildren().addAll(new Text("Сервер чист\n"));
+    void clearServerShapes(MouseEvent event) throws Exception {
+        //FieldMessage.getChildren().addAll(new Text("Сервер чист\n"));
+        client.sendMessage(ServerRequest.CLEAR.toString());
     }
 }

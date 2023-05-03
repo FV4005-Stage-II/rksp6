@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ServerSerialization {
     private ArrayList<objShape> shapes;
-    public void ServerSerialization(){
+    public ServerSerialization(){
         shapes = new ArrayList<objShape>();
     }
     public void Serialize(objShape shape, String fileName) throws IOException {
