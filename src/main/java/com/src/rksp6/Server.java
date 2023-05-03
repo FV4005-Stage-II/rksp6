@@ -16,10 +16,10 @@ public class Server {
     private BufferedReader inputReader;
     private ServerSerialization serialization;
 
-    public Server(int port){
+    public Server(int port, ServerSerialization _serialization){
         try {
             serverSocket = new ServerSocket(port);
-            serialization = new ServerSerialization();
+            serialization = _serialization;
         } catch (Exception ex){
             ex.printStackTrace();
         }
@@ -132,8 +132,9 @@ public class Server {
     }
 
     public static void main(String[] args){
+        var serialization = new ServerSerialization();
         while(true) {
-            var server = new Server(6666);
+            var server = new Server(6666, serialization);
             System.out.println("server init");
             server.start();
             try {
