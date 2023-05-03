@@ -14,6 +14,7 @@ public class ServerSerialization {
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))){
             oos.writeObject(shape);
             oos.flush();
+            shapes.add(shape);
         } catch (IOException ex){
             ex.printStackTrace();
         }

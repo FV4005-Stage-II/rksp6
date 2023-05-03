@@ -2,10 +2,12 @@ package com.src.rksp6;
 
 import com.src.rksp6.object.Conveyor;
 import com.src.rksp6.object.ServerSerialization;
+import com.src.rksp6.object.objShape;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Server {
     private ServerSocket serverSocket;
@@ -34,8 +36,25 @@ public class Server {
             String clientShapeData;
             String fileName = "shape.bin";
             while((clientShapeData = inputReader.readLine()) != null){
-                SaveSerializedShape(shapeFactory, clientShapeData, fileName);
-
+                switch(clientShapeData){
+                    case ("GET_SHAPES"):
+                        sendMessage("shapes");
+                        break;
+                    case("GET_NAMES"):
+                        sendMessage("names");
+                        break;
+                    case("GET_QUANTITY"):
+                        sendMessage("quantity");
+                        break;
+                    case("CLEAR"):
+                        sendMessage("clear");
+                        serialization.getShapes().clear();
+                        break;
+                    default:
+                        System.out.println("default");
+                        SaveSerializedShape(shapeFactory, clientShapeData, fileName);
+                        break;
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -75,6 +94,11 @@ public class Server {
         }
     }
 
+    private void sendMessage(String message) throws IOException {
+        var out = new OutputStreamWriter(clientSocket.getOutputStream());
+        out.write(message);
+    }
+
     private Object[] getDataFromString(String shapeDataString){
         var data = new Object[3];
         var splitData = shapeDataString.split(";");
@@ -91,7 +115,7 @@ public class Server {
     }
 
     public void stop() throws IOException {
-         inputReader.close();
+        inputReader.close();
         dataOutputStream.close();
         serverSocket.close();
         clientSocket.close();
