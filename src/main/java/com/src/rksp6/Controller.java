@@ -187,7 +187,7 @@ public class Controller {
         client.sendMessage(ServerRequest.SHAPES.toString());
         var shapes = sol.loadBinsTCP("receivedSHAPES.bin");
         for(var shape : shapes){
-            shape.drawObject();
+            FieldDrawTCP.getChildren().add(shape.drawObject());
         }
     }
 
