@@ -20,6 +20,27 @@ public class ServerSerialization {
         }
     }
 
+    public void SerializeShapes(String fileName) throws IOException {
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))){
+            oos.writeObject(getShapes());
+            oos.flush();
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void clearShapes() { getShapes().clear(); }
+    public int quantityShapes() { return getShapes().size(); }
+    public String[] namesShapes() {
+        String[] names = new String[getShapes().size()];
+        int i = 0;
+        for (objShape shape : getShapes()) {
+            names[i] = shape.string();
+            i++;
+        }
+        return names;
+    }
+
     public ArrayList<objShape> getShapes() { return shapes; }
 
     public void addShape(objShape object) {
