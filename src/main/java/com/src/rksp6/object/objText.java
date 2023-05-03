@@ -54,4 +54,7 @@ public class objText extends objShape implements Serializable {
         return "objText\n" + gX() + "\n" + gY() + "\n" + gSize() + "\n" + gText() + "\n";
     }
 
+    @Override
+    public String name() {return "Text"; };
+
 }

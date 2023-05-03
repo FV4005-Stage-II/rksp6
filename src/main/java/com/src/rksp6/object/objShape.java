@@ -36,4 +36,6 @@ public abstract class objShape implements Serializable {
 
     public abstract Node drawObject();
 
+    public abstract String name();
+
 }

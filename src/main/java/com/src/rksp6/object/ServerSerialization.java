@@ -35,7 +35,7 @@ public class ServerSerialization {
         String[] names = new String[getShapes().size()];
         int i = 0;
         for (objShape shape : getShapes()) {
-            names[i] = shape.string();
+            names[i] = shape.name();
             i++;
         }
         return names;

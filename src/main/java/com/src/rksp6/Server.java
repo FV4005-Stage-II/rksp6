@@ -42,10 +42,11 @@ public class Server {
                         sendFile("SHAPES.bin", 1024);
                         break;
                     case("NAMES"):
-                        sendFile("NAMES.txt", 1024);
+                        writeToFile(serialization.namesShapes());
+                        sendFile("NAMES.bin", 1024);
                         break;
                     case("QUANTITY"):
-                        sendFile("QUANTITY.txt", 1024);
+                        sendFile("QUANTITY.bin", 1024);
                         break;
                     case("CLEAR"):
                         serialization.getShapes().clear();
@@ -106,6 +107,19 @@ public class Server {
         }
 
         return data;
+    }
+
+    private void writeToFile(String[] strings){
+        File fout = new File("NAMES.bin");
+        try (FileOutputStream fos = new FileOutputStream(fout);
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));) {
+            for (String s : strings) {
+                bw.write(s);
+                bw.newLine();
+            }
+        } catch (IOException ignored) {
+
+        }
     }
 
     public void stop() throws IOException {

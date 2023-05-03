@@ -46,4 +46,7 @@ public class objCircle extends objShape implements Serializable {
     public String string() {
         return "objCircle\n" + gX() + "\n" + gY() + "\n" + gSize() + "\n";
     }
+
+    @Override
+    public String name() { return "Circle"; };
 }

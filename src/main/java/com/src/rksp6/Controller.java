@@ -185,7 +185,7 @@ public class Controller {
     @FXML
     void shapesRequest(MouseEvent event) throws Exception {
         client.sendMessage(ServerRequest.SHAPES.toString());
-        var shapes = sol.loadBinsTCP("receivedShape.bin");
+        var shapes = sol.loadBinsTCP("receivedSHAPES.bin");
         for(var shape : shapes){
             shape.drawObject();
         }
@@ -193,9 +193,17 @@ public class Controller {
 
     @FXML
     void requestNames(MouseEvent event) throws Exception {
-        /*String names = "\n";
-        FieldMessage.getChildren().addAll(new Text(names));*/
         client.sendMessage(ServerRequest.NAMES.toString());
+        FileInputStream fis = new FileInputStream("receivedNAMES.bin");
+        byte[] buffer = new byte[10];
+        StringBuilder sb = new StringBuilder();
+        while (fis.read(buffer) != -1) {
+            sb.append(new String(buffer));
+            buffer = new byte[10];
+        }
+        fis.close();
+        String names = sb.toString();
+        FieldMessage.getChildren().addAll(new Text(names));
     }
 
     @FXML
