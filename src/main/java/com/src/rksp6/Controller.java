@@ -194,30 +194,14 @@ public class Controller {
     @FXML
     void requestNames(MouseEvent event) throws Exception {
         client.sendMessage(ServerRequest.NAMES.toString());
-        FileInputStream fis = new FileInputStream("receivedNAMES.bin");
-        byte[] buffer = new byte[10];
-        StringBuilder sb = new StringBuilder();
-        while (fis.read(buffer) != -1) {
-            sb.append(new String(buffer));
-            buffer = new byte[10];
-        }
-        fis.close();
-        String names = sb.toString();
+        String names = FileManager.readFile("receivedNAMES.bin");
         FieldMessage.getChildren().addAll(new Text(names));
     }
 
     @FXML
     void requestQuantity(MouseEvent event) throws Exception {
         client.sendMessage(ServerRequest.QUANTITY.toString());
-        FileInputStream fis = new FileInputStream("receivedQUANTITY.bin");
-        byte[] buffer = new byte[10];
-        StringBuilder sb = new StringBuilder();
-        while (fis.read(buffer) != -1) {
-            sb.append(new String(buffer));
-            buffer = new byte[10];
-        }
-        fis.close();
-        String quantity = sb.toString();
+        var quantity = FileManager.readFile("receivedQUANTITY.bin");
         FieldMessage.getChildren().addAll(new Text(quantity));
     }
 
