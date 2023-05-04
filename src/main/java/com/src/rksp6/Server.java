@@ -36,30 +36,30 @@ public class Server {
             String clientShapeData;
             String fileName = "shape.bin";
             while((clientShapeData = inputReader.readLine()) != null){
-                switch(clientShapeData){
-                    case ("SHAPES"):
-                        serialization.SerializeShapes("SHAPES.bin");
-                        sendFile("SHAPES.bin", 1024);
-                        break;
-                    case("NAMES"):
-                        writeToFile(serialization.namesShapes(), "NAMES.bin");
-                        sendFile("NAMES.bin", 1024);
-                        break;
-                    case("QUANTITY"):
-                        writeToFile(new String[] {Integer.toString(serialization.getShapes().size())},
-                                "QUANTITY.bin");
-                        sendFile("QUANTITY.bin", 1024);
-                        break;
-                    case("CLEAR"):
-                        serialization.getShapes().clear();
-                        break;
-                    default:
-                        SaveSerializedShape(shapeFactory, clientShapeData, fileName);
-                        break;
-                }
+                processCommand(shapeFactory, clientShapeData, fileName);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void processCommand(Conveyor shapeFactory, String clientShapeData, String fileName) {
+        switch (clientShapeData) {
+            case ("SHAPES") -> {
+                FileManager.serialize(serialization.getShapes(), "SHAPES.bin");
+                FileManager.outputFile(dataOutputStream, "SHAPES.bin", 1024);
+            }
+            case ("NAMES") -> {
+                FileManager.writeToFile(serialization.namesShapes(), "NAMES.bin");
+                FileManager.outputFile(dataOutputStream, "NAMES.bin", 1024);
+            }
+            case ("QUANTITY") -> {
+                FileManager.writeToFile(Integer.toString(serialization.getShapes().size()),
+                        "QUANTITY.bin");
+                FileManager.outputFile(dataOutputStream, "QUANTITY.bin", 1024);
+            }
+            case ("CLEAR") -> serialization.getShapes().clear();
+            default -> SaveSerializedShape(shapeFactory, clientShapeData, fileName);
         }
     }
 
@@ -72,26 +72,9 @@ public class Server {
         System.out.println(shape.string());
         try {
             FileManager.serialize(shape, fileName);
-            sendFile("shape.bin", 1024);
+            serialization.getShapes().add(shape);
+            FileManager.outputFile(dataOutputStream,"shape.bin", 1024);
         } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void sendFile(String path, int bufferSize) {
-        var file = new File(path);
-
-        try(var fileInputStream = new FileInputStream(file)) {
-
-            dataOutputStream.writeLong(file.length());
-
-            var buffer = new byte[bufferSize];
-            int bytes = 0;
-            while ((bytes = fileInputStream.read(buffer)) != -1) {
-                dataOutputStream.write(buffer, 0, bytes);
-                dataOutputStream.flush();
-            }
-        } catch (Exception ex){
             ex.printStackTrace();
         }
     }
@@ -109,19 +92,6 @@ public class Server {
         }
 
         return data;
-    }
-
-    private void writeToFile(String[] strings, String fileName){
-        File fout = new File(fileName);
-        try (FileOutputStream fos = new FileOutputStream(fout);
-             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));) {
-            for (String s : strings) {
-                bw.write(s);
-                 bw.newLine();
-            }
-        } catch (IOException ignored) {
-
-        }
     }
 
     public void stop() throws IOException {

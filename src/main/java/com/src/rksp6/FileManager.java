@@ -39,4 +39,45 @@ public class FileManager {
 
         return new File(fileName);
     }
+
+    public static void outputFile(DataOutputStream dout, String filePath, int bufferSize){
+        var file = new File(filePath);
+
+        try(var fileInputStream = new FileInputStream(file)) {
+
+            dout.writeLong(file.length());
+
+            var buffer = new byte[bufferSize];
+            int bytes = 0;
+            while ((bytes = fileInputStream.read(buffer)) != -1) {
+                dout.write(buffer, 0, bytes);
+                dout.flush();
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public static void writeToFile(String[] strings, String fileName){
+        File fout = new File(fileName);
+        try (FileOutputStream fos = new FileOutputStream(fout);
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));) {
+            for (String s : strings) {
+                bw.write(s);
+                bw.newLine();
+            }
+        } catch (IOException ignored) {
+
+        }
+    }
+
+    public static void writeToFile(String string, String fileName){
+        File fout = new File(fileName);
+        try (FileOutputStream fos = new FileOutputStream(fout);
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));) {
+             bw.write(string);
+        } catch (IOException ignored) {
+
+        }
+    }
 }
