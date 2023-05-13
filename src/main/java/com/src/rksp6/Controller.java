@@ -5,6 +5,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.src.rksp6.Clients.Client;
 import com.src.rksp6.Servers.ServerRequest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

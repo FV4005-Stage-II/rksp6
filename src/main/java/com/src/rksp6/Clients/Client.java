@@ -1,4 +1,4 @@
-package com.src.rksp6;
+package com.src.rksp6.Clients;
 
 import java.io.*;
 import java.net.Socket;
