@@ -1,13 +1,11 @@
-package com.src.rksp6;
+package com.src.rksp6.Servers;
 
+import com.src.rksp6.FileManager;
 import com.src.rksp6.object.Conveyor;
-import com.src.rksp6.object.ServerSerialization;
-import com.src.rksp6.object.objShape;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Server {
     private ServerSocket serverSocket;

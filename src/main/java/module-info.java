@@ -10,4 +10,6 @@ module com.src.rksp6 {
     opens com.src.rksp6.object;
     exports com.src.rksp6;
     opens com.src.rksp6;
+    opens com.src.rksp6.Servers;
+    exports com.src.rksp6.Servers;
 }
