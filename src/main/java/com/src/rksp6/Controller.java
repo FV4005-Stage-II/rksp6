@@ -53,6 +53,9 @@ public class Controller {
     private ToggleButton StateTCP;
 
     @FXML
+    private ToggleButton ServerType;
+
+    @FXML
     private Button BtnShapesRequest;
 
     @FXML
@@ -86,7 +89,7 @@ public class Controller {
         type = choice.getSelectionModel().getSelectedItem().toString();
         typeTCP = choiceTCP.getSelectionModel().getSelectedItem().toString();
 
-        client = new Client();
+        client = new Client("UDP");
     }
 
     @FXML
@@ -122,6 +125,15 @@ public class Controller {
             }
 
             StateTCP.setText("ДО СВЯЗИ");
+        }
+    }
+
+    @FXML
+    void changeServerType(MouseEvent event){
+        if(ServerType.isSelected()){
+            ServerType.setText("UDP");
+        } else {
+            ServerType.setText("TCP");
         }
     }
     @FXML
@@ -185,30 +197,32 @@ public class Controller {
 
     @FXML
     void shapesRequest(MouseEvent event) throws Exception {
-        client.sendMessage(ServerRequest.SHAPES.toString());
+        /*client.send(ServerRequest.SHAPES.toString());
         var shapes = sol.loadBinsTCP("receivedSHAPES.bin");
         for(var shape : shapes){
             FieldDrawTCP.getChildren().add(shape.drawObject());
-        }
+        }*/
+        System.out.println(client.request(ServerRequest.SHAPES));
     }
 
     @FXML
     void requestNames(MouseEvent event) throws Exception {
-        client.sendMessage(ServerRequest.NAMES.toString());
-        String names = FileManager.readFile("receivedNAMES.bin");
-        FieldMessage.getChildren().addAll(new Text(names));
+        //String names = FileManager.readFile("receivedNAMES.bin");
+        //FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.NAMES)));
+        System.out.println(client.request(ServerRequest.NAMES));
     }
 
     @FXML
     void requestQuantity(MouseEvent event) throws Exception {
-        client.sendMessage(ServerRequest.QUANTITY.toString());
-        var quantity = FileManager.readFile("receivedQUANTITY.bin");
-        FieldMessage.getChildren().addAll(new Text(quantity));
+        //var quantity = FileManager.readFile("receivedQUANTITY.bin");
+        //FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.QUANTITY)));
+        System.out.println(client.request(ServerRequest.QUANTITY));
     }
 
     @FXML
     void clearServerShapes(MouseEvent event) throws Exception {
-        client.sendMessage(ServerRequest.CLEAR.toString());
-        FieldMessage.getChildren().addAll(new Text("Сервер чист\n"));
+        //client.send(ServerRequest.CLEAR.toString());
+        //FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.CLEAR)));
+        System.out.println(client.request(ServerRequest.CLEAR));
     }
 }

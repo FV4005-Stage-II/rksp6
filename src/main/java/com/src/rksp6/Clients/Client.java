@@ -1,78 +1,40 @@
 package com.src.rksp6.Clients;
 
-import java.io.*;
-import java.net.Socket;
+import com.src.rksp6.Servers.ServerRequest;
+
+import java.util.HashMap;
 
 public class Client {
-    private Socket clientSocket;
-    private PrintWriter out;
-    private DataInputStream in;
-    private boolean isConnected;
+    private HashMap<String, IClient> clients;
+    String activeClient;
 
-    public Client(){
-        isConnected = false;
+    public Client(String _activeClient){
+        clients = new HashMap<String, IClient>();
+        //var tcp = new ClientTCP();
+        //tcp.startConnection("127.0.0.1", 4443);
+        var udp = new ClientUDP(4444, "UTF-8");
+
+        //clients.put("TCP", tcp);
+        clients.put("UDP", udp);
+
+        activeClient = _activeClient;
     }
 
-    public boolean startConnection(String ip, int port) {
-        try {
-            clientSocket = new Socket(ip, port);
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new DataInputStream(clientSocket.getInputStream());
-            isConnected = true;
-
-            return true;
-        } catch(Exception exception) {
-            exception.printStackTrace();
-        }
-
-        return false;
+    public IClient getClient(String clientType){
+        return clients.get(clientType);
     }
 
-    public void sendShape(String shape) {
-        out.println(shape);
-        out.flush();
-        receiveFile("receivedShape.bin", 1024);
+    public void send(String message, String clientType){
+        getClient(activeClient).send(message);
     }
 
-    public void sendMessage(String message){
-        out.println(message);
-        out.flush();
-        if(!message.equals("CLEAR"))
-            receiveFile("received"+ message + ".bin", 1024);
-    }
+    public String request(ServerRequest request){ return this.getClient(activeClient).request(request); }
 
-    private void receiveFile(String path, int bufferSize) {
-        try(var fileOutputStream = new FileOutputStream(path)) {
-            int bytes = 0;
-            // Read file size
-            long size = in.readLong();
-            byte[] buffer = new byte[bufferSize];
+    public boolean getConnectionStatus(){ return false; }
 
-            while (size > 0 && (bytes = in.read(buffer, 0, (int) Math.min(buffer.length, size))) != -1) {
-                fileOutputStream.write(buffer, 0, bytes);
-                // Read upto file size
-                size -= bytes;
-            }
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
+    public boolean startConnection(String shit, int shot) { return false; }
 
-    public boolean stopConnection() {
-        try {
-            clientSocket.close();
-            out.close();
-            in.close();
-            isConnected = false;
-            return true;
-        } catch (IOException ex){
-            ex.printStackTrace();
-        }
+    public boolean stopConnection() { return false; }
 
-        return false;
-    }
-
-    public boolean getConnectionStatus(){
-        return isConnected;
-    }
+    public boolean sendShape(String shape) { return false; }
 }

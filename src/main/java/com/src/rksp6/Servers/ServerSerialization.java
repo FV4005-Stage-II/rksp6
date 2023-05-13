@@ -1,5 +1,6 @@
 package com.src.rksp6.Servers;
 
+import com.src.rksp6.object.Conveyor;
 import com.src.rksp6.object.objShape;
 
 import java.util.ArrayList;
@@ -24,7 +25,21 @@ public class ServerSerialization {
 
     public ArrayList<objShape> getShapes() { return shapes; }
 
+    public String getNames(){
+        var names = new ArrayList<String>();
+        for(var shape : shapes)
+            names.add(shape.name());
+
+        return String.join(" ", names);
+    }
+
     public void addShape(objShape object) {
         shapes.add(object);
+    }
+
+    public void setShapes(){
+        var conveyor = new Conveyor();
+        shapes.add(conveyor.createShape("Круг", 18.0, 20.0));
+        shapes.add(conveyor.createShape("Текст", 3.0, 1.0));
     }
 }
