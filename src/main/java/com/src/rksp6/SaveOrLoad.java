@@ -135,5 +135,4 @@ public class SaveOrLoad {
         xstream.allowTypesByWildcard(new String[] { "com.src.rksp6.**" });
         shapes = (ArrayList<objShape>) xstream.fromXML(xmlData);
     }
-
 }

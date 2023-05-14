@@ -14,8 +14,8 @@ public class Conveyor {
     public objShape createShape(String type, double x, double y) {
         objShape shape = null;
         switch (type) {
-            case "Круг" -> shape = new objCircle(x, y, size);
-            case "Текст" -> shape = new objText(x, y, size, text);
+            case "Circle" -> shape = new objCircle(x, y, size);
+            case "Text" -> shape = new objText(x, y, size, text);
         }
         return shape;
     }

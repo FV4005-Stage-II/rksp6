@@ -26,7 +26,7 @@ import com.src.rksp6.object.*;
 
 public class Controller {
 
-    private ObservableList<String> choiceValue = FXCollections.observableArrayList("Круг", "Текст");
+    private ObservableList<String> choiceValue = FXCollections.observableArrayList("Circle", "Text");
 
     @FXML
     private ResourceBundle resources;
@@ -72,6 +72,7 @@ public class Controller {
     ///////////////////////////////
     private Conveyor model = null;
     private SaveOrLoad sol = null;
+    private SaveOrLoad sol1 = null;
     private String type = null;
     private String typeTCP = null;
     private Client client;
@@ -80,6 +81,7 @@ public class Controller {
     void initialize() {
         model = new Conveyor();
         sol = new SaveOrLoad();
+        sol1 = new SaveOrLoad();
 
         choice.setItems(choiceValue);
         choice.getSelectionModel().selectFirst();
@@ -150,14 +152,21 @@ public class Controller {
     }
     @FXML
     void MouseClickedDrawShapeTCP(MouseEvent event) throws Exception {
+//        double x = event.getX();
+//        double y = event.getY();
+//        var type = choiceTCP.getSelectionModel().getSelectedItem().toString();
+//        var str = type + ";" + x + ";" + y;
+//
+//        if(client.getConnectionStatus())
+//            client.sendShape(str);
+//        FieldDrawTCP.getChildren().add((sol.loadBinTCP("receivedShape.bin")).drawObject());
+
         double x = event.getX();
         double y = event.getY();
-        var type = choiceTCP.getSelectionModel().getSelectedItem().toString();
-        var str = type + ";" + x + ";" + y;
+        sol1.addShape(this.model.createShape(typeTCP, x, y));
+        FileManager.serialize( sol1.gShapes().get(sol1.gShapes().size() - 1), "OjectUdp.bin");
+        FieldDrawTCP.getChildren().add(sol1.gShapes().get(sol1.gShapes().size() - 1).drawObject());
 
-        if(client.getConnectionStatus())
-            client.sendShape(str);
-        FieldDrawTCP.getChildren().add((sol.loadBinTCP("receivedShape.bin")).drawObject());
     }
      @FXML
      void load(ActionEvent event) {
@@ -207,7 +216,16 @@ public class Controller {
         for(var shape : shapes){
             FieldDrawTCP.getChildren().add(shape.drawObject());
         }*/
-        FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.SHAPES) + "\n"));
+        Conveyor shape = new Conveyor();
+        String namesShapes = client.request(ServerRequest.SHAPES) + "\n";
+        FieldMessage.getChildren().addAll(new Text(namesShapes));
+        var array = namesShapes.split(";");
+        for(var names : array) {
+            var name = names.split(" ");
+            FieldDrawTCP.getChildren().add(shape.createShape(name[0],
+                    Double.parseDouble(name[1]),
+                    Double.parseDouble(name[2])).drawObject());
+        }
     }
 
     @FXML
