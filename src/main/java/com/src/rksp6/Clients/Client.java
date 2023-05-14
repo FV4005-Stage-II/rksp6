@@ -10,11 +10,11 @@ public class Client {
 
     public Client(String _activeClient){
         clients = new HashMap<String, IClient>();
-        //var tcp = new ClientTCP();
+        var tcp = new ClientTCP();
         //tcp.startConnection("127.0.0.1", 4443);
         var udp = new ClientUDP(4444, "UTF-8");
 
-        //clients.put("TCP", tcp);
+        clients.put("TCP", tcp);
         clients.put("UDP", udp);
 
         activeClient = _activeClient;
@@ -27,6 +27,8 @@ public class Client {
     public void send(String message, String clientType){
         getClient(activeClient).send(message);
     }
+
+    public void setActiveClient(String clientType) { activeClient = clientType; }
 
     public String request(ServerRequest request){ return this.getClient(activeClient).request(request); }
 

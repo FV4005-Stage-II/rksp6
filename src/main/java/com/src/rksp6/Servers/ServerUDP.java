@@ -54,7 +54,7 @@ public class ServerUDP extends Thread {
     private String processRequest(String request){
         switch (request) {
             case ("SHAPES") -> {
-                return mem.getShapes().toString();
+                return mem.getStringShapes();
             }
             case ("NAMES") -> {
                 return mem.getNames();
@@ -63,6 +63,7 @@ public class ServerUDP extends Thread {
                 return Integer.toString(mem.getShapes().size());
             }
             case ("CLEAR") -> {
+                mem.clearShapes();
                 return "Cleared";
             }
         }

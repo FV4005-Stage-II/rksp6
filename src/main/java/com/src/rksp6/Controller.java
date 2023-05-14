@@ -132,10 +132,15 @@ public class Controller {
     void changeServerType(MouseEvent event){
         if(ServerType.isSelected()){
             ServerType.setText("UDP");
+            StateTCP.setDisable(true);
         } else {
             ServerType.setText("TCP");
+            StateTCP.setDisable(false);
         }
+
+        client.setActiveClient(ServerType.getText());
     }
+
     @FXML
     void MouseClickedDrawShape(MouseEvent event) throws IOException, ClassNotFoundException {
         double x = event.getX();
@@ -202,21 +207,19 @@ public class Controller {
         for(var shape : shapes){
             FieldDrawTCP.getChildren().add(shape.drawObject());
         }*/
-        System.out.println(client.request(ServerRequest.SHAPES));
+        FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.SHAPES) + "\n"));
     }
 
     @FXML
     void requestNames(MouseEvent event) throws Exception {
         //String names = FileManager.readFile("receivedNAMES.bin");
-        //FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.NAMES)));
-        System.out.println(client.request(ServerRequest.NAMES));
+        FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.NAMES) + "\n"));
     }
 
     @FXML
     void requestQuantity(MouseEvent event) throws Exception {
         //var quantity = FileManager.readFile("receivedQUANTITY.bin");
-        //FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.QUANTITY)));
-        System.out.println(client.request(ServerRequest.QUANTITY));
+        FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.QUANTITY) + "\n"));
     }
 
     @FXML

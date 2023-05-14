@@ -25,12 +25,28 @@ public class ServerSerialization {
 
     public ArrayList<objShape> getShapes() { return shapes; }
 
+    public String getStringShapes(){
+        var strShapes = new ArrayList<String>();
+
+        for(var shape : shapes){
+            var strShape = String.join(
+                    " ",
+                    shape.name(),
+                    Double.toString(shape.gX()),
+                    Double.toString(shape.gY())
+            );
+            strShapes.add(strShape);
+        }
+
+        return  String.join(";", strShapes);
+    }
+
     public String getNames(){
         var names = new ArrayList<String>();
         for(var shape : shapes)
             names.add(shape.name());
 
-        return String.join(" ", names);
+        return String.join("\n", names);
     }
 
     public void addShape(objShape object) {
