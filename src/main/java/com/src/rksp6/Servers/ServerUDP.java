@@ -1,7 +1,9 @@
 package com.src.rksp6.Servers;
 
 import com.src.rksp6.FileManager;
+import com.src.rksp6.SaveOrLoad;
 
+import java.io.File;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.Arrays;
@@ -12,6 +14,7 @@ public class ServerUDP extends Thread {
     private byte[] buf;
     String encoding;
     private ServerSerialization mem;
+    private SaveOrLoad sol;
 
     public ServerUDP(int port, int bufferSize, String _encoding) throws Exception {
         socket = new DatagramSocket(port);
@@ -19,6 +22,7 @@ public class ServerUDP extends Thread {
         encoding = _encoding;
         mem = new ServerSerialization();
         mem.setShapes();
+        sol = new SaveOrLoad();
     }
 
     public void run(){
@@ -65,6 +69,9 @@ public class ServerUDP extends Thread {
             case ("CLEAR") -> {
                 mem.clearShapes();
                 return "Cleared";
+            }
+            default -> {
+                FileManager.writeToFile(request, "xuyZalupa.bin");
             }
         }
         return "Uknown request.";
