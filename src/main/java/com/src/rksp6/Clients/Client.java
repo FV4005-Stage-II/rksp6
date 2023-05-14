@@ -32,6 +32,7 @@ public class Client {
 
     public String request(ServerRequest request){ return this.getClient(activeClient).request(request); }
 
+
     public boolean getConnectionStatus(){ return false; }
 
     public boolean startConnection(String shit, int shot) { return false; }

@@ -2,10 +2,7 @@ package com.src.rksp6.Clients;
 
 import com.src.rksp6.Servers.ServerRequest;
 
-import java.io.DataInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class ClientTCP implements IClient {
@@ -44,6 +41,10 @@ public class ClientTCP implements IClient {
         out.flush();
         if(!message.equals("CLEAR"))
             receiveFile("received"+ message + ".bin", 1024);
+    }
+
+    public void send(File file){
+        throw new UnsupportedOperationException();
     }
 
     private void receiveFile(String path, int bufferSize) {
