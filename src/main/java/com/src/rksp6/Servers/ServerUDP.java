@@ -7,7 +7,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 
-public class ServerUDP extends Thread {
+public class ServerUDP {
     private DatagramSocket socket;
     private boolean isRunning;
     private byte[] buf;
@@ -34,6 +34,9 @@ public class ServerUDP extends Thread {
                 var data = new byte[packet.getLength()];
                 System.arraycopy(packet.getData(), packet.getOffset(), data, 0, packet.getLength());
                 var answer = processRequest(new String(data, encoding), data);
+
+                if(answer == "Server received shape.")
+                    continue;
 
                 socket.send(
                         new DatagramPacket(

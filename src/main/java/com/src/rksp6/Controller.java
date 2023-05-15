@@ -165,7 +165,6 @@ public class Controller {
         double y = event.getY();
         sol1.addShape(this.model.createShape(typeTCP, x, y));
         var shape = sol1.gShapes().get(sol1.gShapes().size() - 1);
-        FileManager.serialize(shape, "OjectUdp.bin");
         FieldDrawTCP.getChildren().add(shape.drawObject());
         client.send(shape);
     }
@@ -214,7 +213,6 @@ public class Controller {
     void shapesRequest(MouseEvent event) throws Exception {
         Conveyor shape = new Conveyor();
         String namesShapes = client.request(ServerRequest.SHAPES) + "\n";
-        System.out.println(namesShapes);
         FieldMessage.getChildren().addAll(new Text(namesShapes));
         var array = namesShapes.split(";");
         for(var names : array) {
@@ -227,8 +225,8 @@ public class Controller {
 
     @FXML
     void requestNames(MouseEvent event) throws Exception {
-        FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.NAMES) + "\n"));
-
+        var names = client.request(ServerRequest.NAMES) + "\n";
+        FieldMessage.getChildren().addAll(new Text(names));
     }
 
     @FXML
