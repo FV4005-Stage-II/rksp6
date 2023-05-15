@@ -7,5 +7,6 @@ import java.io.File;
 public interface IClient {
     void send(String message);
     void send(File file);
+    void send(Object object);
     String request(ServerRequest request);
 }

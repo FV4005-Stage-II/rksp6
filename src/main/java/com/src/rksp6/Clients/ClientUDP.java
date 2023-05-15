@@ -3,8 +3,7 @@ package com.src.rksp6.Clients;
 import com.src.rksp6.FileManager;
 import com.src.rksp6.Servers.ServerRequest;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -40,7 +39,28 @@ public class ClientUDP implements IClient {
 
     public void send(File file){
         try {
-            this.send(FileManager.readFile(file.getAbsolutePath()));
+            var fileContents = new String(
+                    FileManager.readFile(file.getAbsolutePath()).getBytes(),
+                    encoding
+            );
+            this.send(fileContents);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void send(byte[] array){
+        try{
+            socket.send(new DatagramPacket(array, array.length, address, port));
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void send(Object object){
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutput out = new ObjectOutputStream(bos)) {
+            out.writeObject(object);
+            this.send(bos.toByteArray());
         } catch (Exception ex){
             ex.printStackTrace();
         }

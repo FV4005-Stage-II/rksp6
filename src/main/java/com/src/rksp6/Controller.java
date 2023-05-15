@@ -164,9 +164,10 @@ public class Controller {
         double x = event.getX();
         double y = event.getY();
         sol1.addShape(this.model.createShape(typeTCP, x, y));
-        FileManager.serialize( sol1.gShapes().get(sol1.gShapes().size() - 1), "OjectUdp.bin");
-        FieldDrawTCP.getChildren().add(sol1.gShapes().get(sol1.gShapes().size() - 1).drawObject());
-
+        var shape = sol1.gShapes().get(sol1.gShapes().size() - 1);
+        FileManager.serialize(shape, "OjectUdp.bin");
+        FieldDrawTCP.getChildren().add(shape.drawObject());
+        client.send(shape);
     }
      @FXML
      void load(ActionEvent event) {
@@ -211,13 +212,9 @@ public class Controller {
 
     @FXML
     void shapesRequest(MouseEvent event) throws Exception {
-        /*client.send(ServerRequest.SHAPES.toString());
-        var shapes = sol.loadBinsTCP("receivedSHAPES.bin");
-        for(var shape : shapes){
-            FieldDrawTCP.getChildren().add(shape.drawObject());
-        }*/
         Conveyor shape = new Conveyor();
         String namesShapes = client.request(ServerRequest.SHAPES) + "\n";
+        System.out.println(namesShapes);
         FieldMessage.getChildren().addAll(new Text(namesShapes));
         var array = namesShapes.split(";");
         for(var names : array) {
@@ -230,20 +227,17 @@ public class Controller {
 
     @FXML
     void requestNames(MouseEvent event) throws Exception {
-        //String names = FileManager.readFile("receivedNAMES.bin");
         FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.NAMES) + "\n"));
+
     }
 
     @FXML
     void requestQuantity(MouseEvent event) throws Exception {
-        //var quantity = FileManager.readFile("receivedQUANTITY.bin");
         FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.QUANTITY) + "\n"));
     }
 
     @FXML
     void clearServerShapes(MouseEvent event) throws Exception {
-        //client.send(ServerRequest.CLEAR.toString());
-        //FieldMessage.getChildren().addAll(new Text(client.request(ServerRequest.CLEAR)));
         System.out.println(client.request(ServerRequest.CLEAR));
     }
 }

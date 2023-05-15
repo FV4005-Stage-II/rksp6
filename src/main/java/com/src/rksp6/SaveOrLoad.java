@@ -68,11 +68,17 @@ public class SaveOrLoad {
         ois.close();
     }
 
-    public objShape loadBinTCP(String path) throws Exception{
-        InputStream is = new FileInputStream(path);
-        ObjectInputStream ois = new ObjectInputStream(is);
-        var shape = (objShape) ois.readObject();
-        ois.close();
+    public objShape loadBinTCP(String path) {
+        objShape shape = null;
+
+        try {
+            InputStream is = new FileInputStream(path);
+            ObjectInputStream ois = new ObjectInputStream(is);
+            shape = (objShape) ois.readObject();
+            ois.close();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
         return shape;
     }
 

@@ -78,6 +78,10 @@ public class ClientTCP implements IClient {
         return false;
     }
 
+    public void send(Object object){
+        throw new UnsupportedOperationException();
+    }
+
     public String request(ServerRequest request){
         throw new UnsupportedOperationException();
     }

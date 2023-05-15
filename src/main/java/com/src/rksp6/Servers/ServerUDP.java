@@ -1,12 +1,11 @@
 package com.src.rksp6.Servers;
 
-import com.src.rksp6.FileManager;
-import com.src.rksp6.SaveOrLoad;
+import com.src.rksp6.object.objShape;
 
-import java.io.File;
+import java.io.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.util.Arrays;
+
 
 public class ServerUDP extends Thread {
     private DatagramSocket socket;
@@ -14,15 +13,12 @@ public class ServerUDP extends Thread {
     private byte[] buf;
     String encoding;
     private ServerSerialization mem;
-    private SaveOrLoad sol;
 
     public ServerUDP(int port, int bufferSize, String _encoding) throws Exception {
         socket = new DatagramSocket(port);
         buf = new byte[bufferSize];
         encoding = _encoding;
         mem = new ServerSerialization();
-        mem.setShapes();
-        sol = new SaveOrLoad();
     }
 
     public void run(){
@@ -37,7 +33,7 @@ public class ServerUDP extends Thread {
                 socket.receive(packet);
                 var data = new byte[packet.getLength()];
                 System.arraycopy(packet.getData(), packet.getOffset(), data, 0, packet.getLength());
-                var answer = processRequest(new String(data, encoding));
+                var answer = processRequest(new String(data, encoding), data);
 
                 socket.send(
                         new DatagramPacket(
@@ -55,7 +51,8 @@ public class ServerUDP extends Thread {
         socket.close();
     }
 
-    private String processRequest(String request){
+    private String processRequest(String request, byte[] object){
+        System.out.println(request);
         switch (request) {
             case ("SHAPES") -> {
                 return mem.getStringShapes();
@@ -71,23 +68,31 @@ public class ServerUDP extends Thread {
                 return "Cleared";
             }
             default -> {
-                FileManager.writeToFile(request, "xuyZalupa.bin");
+                try {
+                    var shape = (objShape)convertFromByteString(object);
+                    if(shape != null) {
+                        mem.getShapes().add(shape);
+                        return "Server received shape.";
+                    }
+                    else
+                        throw new StreamCorruptedException();
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
             }
         }
+        System.out.println("Uknown request" + " " + request);
         return "Uknown request.";
     }
 
-    static byte[] trim(byte[] bytes)
-    {
-        int i = bytes.length - 1;
-        while (i >= 0 && bytes[i] == 0)
-        {
-            --i;
+    public static Object convertFromByteString(byte[] bytes) {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes); ObjectInput in = new ObjectInputStream(bis)) {
+            return in.readObject();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
         }
-
-        return Arrays.copyOf(bytes, i + 1);
     }
-
 
     public static void main(String args[]) throws Exception {
         var server = new ServerUDP(4444, 1024, "UTF-8");

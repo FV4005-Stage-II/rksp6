@@ -2,6 +2,7 @@ package com.src.rksp6.Clients;
 
 import com.src.rksp6.Servers.ServerRequest;
 
+import java.io.File;
 import java.util.HashMap;
 
 public class Client {
@@ -24,9 +25,10 @@ public class Client {
         return clients.get(clientType);
     }
 
-    public void send(String message, String clientType){
-        getClient(activeClient).send(message);
-    }
+    public void send(String message){ getClient(activeClient).send(message); }
+
+    public void send(Object object) { getClient(activeClient).send(object); }
+
 
     public void setActiveClient(String clientType) { activeClient = clientType; }
 

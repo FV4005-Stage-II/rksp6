@@ -52,10 +52,4 @@ public class ServerSerialization {
     public void addShape(objShape object) {
         shapes.add(object);
     }
-
-    public void setShapes(){
-        var conveyor = new Conveyor();
-        shapes.add(conveyor.createShape("Круг", 18.0, 20.0));
-        shapes.add(conveyor.createShape("Текст", 3.0, 1.0));
-    }
 }
