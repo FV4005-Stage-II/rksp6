@@ -91,7 +91,7 @@ public class Controller {
         type = choice.getSelectionModel().getSelectedItem().toString();
         typeTCP = choiceTCP.getSelectionModel().getSelectedItem().toString();
 
-        client = new Client("UDP");
+        client = new Client(ServerType.getText());
     }
 
     @FXML

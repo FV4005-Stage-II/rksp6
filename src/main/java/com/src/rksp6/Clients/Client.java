@@ -11,8 +11,7 @@ public class Client {
 
     public Client(String _activeClient){
         clients = new HashMap<String, IClient>();
-        var tcp = new ClientTCP();
-        //tcp.startConnection("127.0.0.1", 4443);
+        var tcp = new ClientTCP("127.0.0.1", 4443);
         var udp = new ClientUDP(4444, "UTF-8");
 
         clients.put("TCP", tcp);

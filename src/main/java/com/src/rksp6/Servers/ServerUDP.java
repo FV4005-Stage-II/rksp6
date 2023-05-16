@@ -72,12 +72,11 @@ public class ServerUDP {
             }
             default -> {
                 try {
-                    var shape = (objShape)convertFromByteString(object);
+                    var shape = (objShape)convertFromBytes(object);
                     if(shape != null) {
                         mem.getShapes().add(shape);
                         return "Server received shape.";
-                    }
-                    else
+                    } else
                         throw new StreamCorruptedException();
                 } catch (Exception ex){
                     ex.printStackTrace();
@@ -88,7 +87,7 @@ public class ServerUDP {
         return "Uknown request.";
     }
 
-    public static Object convertFromByteString(byte[] bytes) {
+    public static Object convertFromBytes(byte[] bytes) {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes); ObjectInput in = new ObjectInputStream(bis)) {
             return in.readObject();
         } catch (Exception ex) {
