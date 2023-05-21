@@ -7,7 +7,7 @@ import com.src.rksp6.object.objShape;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import static spark.Spark.*;
 public class ServerTCP {
     private ServerSocket serverSocket;
     private Socket clientSocket;
