@@ -13,7 +13,8 @@ import java.net.URLConnection;
 public class ClientHttp implements IClient {
 
     public ClientHttp() throws IOException {
-        String urlAdress = "localhost:8080/hello/Тесак_Ты_был_добряк";
+        //String urlAdress = "127.0.0.1:8080/hello/Тесак_Ты_был_добряк";
+        String urlAdress = "http://[::1]:8080/hello/Teсак_ты_был_добряк";
         URLConnection urlConnection = null;
         URL url = null;
         InputStreamReader isR = null;

@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.src.rksp6.Clients.Client;
+import com.src.rksp6.Clients.ClientHttp;
 import com.src.rksp6.Servers.ServerRequest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -78,7 +79,8 @@ public class Controller {
     private Client client;
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException {
+        ClientHttp a = new ClientHttp();
         model = new Conveyor();
         sol = new SaveOrLoad();
         sol1 = new SaveOrLoad();
