@@ -7,6 +7,7 @@ module com.src.rksp6 {
     requires org.apache.commons.io;
     requires xstream;
     requires spark.core;
+    requires org.eclipse.jetty.websocket.api;
 
     opens com.src.rksp6.object;
     exports com.src.rksp6;
