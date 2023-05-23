@@ -28,6 +28,7 @@ import com.src.rksp6.object.*;
 public class Controller {
 
     private ObservableList<String> choiceValue = FXCollections.observableArrayList("Circle", "Text");
+    private ObservableList<String> choiceConectionList = FXCollections.observableArrayList("TCP", "UDP", "HTTP");
 
     @FXML
     private ResourceBundle resources;
@@ -70,12 +71,16 @@ public class Controller {
 
     @FXML
     private TextFlow FieldMessage;
+
+    @FXML
+    private ComboBox<String> ChoiceConnection;
     ///////////////////////////////
     private Conveyor model = null;
     private SaveOrLoad sol = null;
     private SaveOrLoad sol1 = null;
     private String type = null;
     private String typeTCP = null;
+    private String typeConection = null;
     private Client client;
 
     @FXML
@@ -89,13 +94,18 @@ public class Controller {
         choice.getSelectionModel().selectFirst();
         choiceTCP.setItems(choiceValue);
         choiceTCP.getSelectionModel().selectFirst();
+        ChoiceConnection.setItems(choiceConectionList);
+        ChoiceConnection.getSelectionModel().selectFirst();
 
         type = choice.getSelectionModel().getSelectedItem().toString();
         typeTCP = choiceTCP.getSelectionModel().getSelectedItem().toString();
-
-        client = new Client(ServerType.getText());
+        typeConection =  ChoiceConnection.getSelectionModel().getSelectedItem().toString();
+        //client = new Client(ServerType.getText());
     }
+    @FXML
+    void selectConnection(ActionEvent event) {
 
+    }
     @FXML
     void select(ActionEvent event) {
         type = choice.getSelectionModel().getSelectedItem().toString();

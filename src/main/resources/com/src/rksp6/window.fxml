@@ -7,7 +7,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.TextFlow?>
@@ -47,13 +46,12 @@
                      <children>
                          <ComboBox fx:id="choiceTCP" layoutX="20.0" layoutY="14.0" onAction="#selectTCP" prefWidth="150.0" />
                          <Pane fx:id="FieldDrawTCP" layoutX="20.0" layoutY="53.0" onMouseClicked="#MouseClickedDrawShapeTCP" prefHeight="476.0" prefWidth="505.0" style="-fx-background-color: E0E0E0;" />
-                         <ToggleButton fx:id="StateTCP" layoutX="180.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#setState" text="ДО СВЯЗИ" />
                          <Button fx:id="BtnShapesRequest" layoutX="567.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#shapesRequest" text="запрос фигур" />
                          <Button fx:id="BtnClearServerShapes" layoutX="308.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#clearServerShapes" text="очистка" />
                          <Button fx:id="BtnRequestNames" layoutX="377.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#requestNames" text="запрос имен" />
                          <Button fx:id="BtnRequestQuantity" layoutX="473.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#requestQuantity" text="количество" />
                          <TextFlow fx:id="FieldMessage" layoutX="531.0" layoutY="54.0" prefHeight="475.0" prefWidth="289.0" />
-                         <ToggleButton fx:id="ServerType" layoutX="263.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#changeServerType" text="TCP" />
+                        <ComboBox fx:id="ChoiceConnection" layoutX="189.0" layoutY="14.0" onAction="#selectConnection" prefHeight="25.0" prefWidth="108.0" />
                      </children>
                   </AnchorPane>
             </content>
