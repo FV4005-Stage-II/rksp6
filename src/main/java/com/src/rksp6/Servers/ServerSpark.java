@@ -14,13 +14,14 @@ public class ServerSpark {
         memory.addShape(conveyor.createShape("Text", 2, 2));
 
 
+
         port(8080);
 
         get("/NAMES", (request, response) -> {
             return memory.getNames();
         });
 
-        get("/COUNT", (request, response) -> {
+        get("/QUANTITY", (request, response) -> {
             return memory.getShapes().size();
         });
 

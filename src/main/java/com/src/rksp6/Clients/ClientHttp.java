@@ -33,10 +33,10 @@ public class ClientHttp implements IClient {
 //            isR.close();
 //            bfR.close();
 //        }
-        System.out.println((ServerRequest.NAMES));
-        System.out.println((ServerRequest.QUANTITY));
-        System.out.println((ServerRequest.SHAPES));
-        System.out.println((ServerRequest.CLEAR));
+        System.out.println(request(ServerRequest.NAMES));
+        System.out.println(request(ServerRequest.QUANTITY));
+        System.out.println(request(ServerRequest.SHAPES));
+        System.out.println(request(ServerRequest.CLEAR));
     }
 
 
@@ -68,7 +68,7 @@ public class ClientHttp implements IClient {
             urlConnection = url.openConnection();
             isR = new InputStreamReader(urlConnection.getInputStream());
             bfR = new BufferedReader(isR);
-            response = String.valueOf(bfR.read());
+            response = bfR.readLine();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -86,21 +86,5 @@ public class ClientHttp implements IClient {
             }
         }
         return response;
-    }
-
-    @Override
-    public void send(File file) {
-
-    }
-
-    @Override
-    public void send(Object object) {
-
-    }
-
-    @Override
-    public String request(ServerRequest request) {
-
-        return null;
     }
 }
