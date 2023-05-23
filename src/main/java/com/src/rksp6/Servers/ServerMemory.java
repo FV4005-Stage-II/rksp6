@@ -1,13 +1,12 @@
 package com.src.rksp6.Servers;
 
-import com.src.rksp6.object.Conveyor;
 import com.src.rksp6.object.objShape;
 
 import java.util.ArrayList;
 
-public class ServerSerialization {
+public class ServerMemory {
     private ArrayList<objShape> shapes;
-    public ServerSerialization(){
+    public ServerMemory(){
         shapes = new ArrayList<objShape>();
     }
 

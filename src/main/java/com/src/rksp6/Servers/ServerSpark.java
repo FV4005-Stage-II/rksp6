@@ -1,18 +1,12 @@
 package com.src.rksp6.Servers;
 import static spark.Spark.*;
-import org.eclipse.jetty.websocket.api.*;
-import org.eclipse.jetty.websocket.api.annotations.*;
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
 
-@WebSocket
 public class ServerSpark {
-    private static final Queue<Session> sessions = new ConcurrentLinkedQueue<>();
-
+    ServerMemory memory;
     public ServerSpark() {
+        memory = new ServerMemory();
         port(8080);
-        get("/hello/:name", (request, response) -> {
+        get("/hello/names", (request, response) -> {
             return "Hello " + request.params(":name");
         });
     }
