@@ -87,4 +87,20 @@ public class ClientHttp implements IClient {
         }
         return response;
     }
+
+    @Override
+    public void send(File file) {
+
+    }
+
+    @Override
+    public void send(Object object) {
+
+    }
+
+    @Override
+    public String request(ServerRequest request) {
+
+        return null;
+    }
 }

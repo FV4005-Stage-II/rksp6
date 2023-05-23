@@ -12,13 +12,13 @@ public class ServerUDP {
     private boolean isRunning;
     private byte[] buf;
     String encoding;
-    private ServerSerialization mem;
+    private ServerMemory mem;
 
     public ServerUDP(int port, int bufferSize, String _encoding) throws Exception {
         socket = new DatagramSocket(port);
         buf = new byte[bufferSize];
         encoding = _encoding;
-        mem = new ServerSerialization();
+        mem = new ServerMemory();
     }
 
     public void run(){

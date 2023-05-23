@@ -1,19 +1,36 @@
 package com.src.rksp6.Servers;
+import com.src.rksp6.object.Conveyor;
+
+
 import static spark.Spark.*;
-import org.eclipse.jetty.websocket.api.*;
-import org.eclipse.jetty.websocket.api.annotations.*;
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
 
-@WebSocket
 public class ServerSpark {
-    private static final Queue<Session> sessions = new ConcurrentLinkedQueue<>();
-
+    ServerMemory memory;
     public ServerSpark() {
+        memory = new ServerMemory();
+
+        var conveyor = new Conveyor();
+        memory.addShape(conveyor.createShape("Circle", 1, 1));
+        memory.addShape(conveyor.createShape("Text", 2, 2));
+
+
         port(8080);
-        get("/hello/:name", (request, response) -> {
-            return "Hello " + request.params(":name");
+
+        get("/NAMES", (request, response) -> {
+            return memory.getNames();
+        });
+
+        get("/COUNT", (request, response) -> {
+            return memory.getShapes().size();
+        });
+
+        get("/SHAPES", (request, response) -> {
+            return memory.getStringShapes();
+        });
+
+        get("/CLEAR", (request, response)->{
+            memory.clearShapes();
+            return "Shapes cleared.";
         });
     }
 

@@ -7,15 +7,15 @@ import com.src.rksp6.object.objShape;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import static spark.Spark.*;
+
 public class ServerTCP {
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private DataOutputStream out;
     private DataInputStream in;
-    private ServerSerialization mem;
+    private ServerMemory mem;
 
-    public ServerTCP(int port, ServerSerialization _serialization){
+    public ServerTCP(int port, ServerMemory _serialization){
         try {
             serverSocket = new ServerSocket(port);
             mem = _serialization;
@@ -141,7 +141,7 @@ public class ServerTCP {
     }
 
     public static void main(String[] args){
-        var serialization = new ServerSerialization();
+        var serialization = new ServerMemory();
         while(true) {
             var server = new ServerTCP(4443, serialization);
             System.out.println("server init");
