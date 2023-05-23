@@ -14,26 +14,32 @@ public class ClientHttp implements IClient {
 
     public ClientHttp() throws IOException {
         //String urlAdress = "127.0.0.1:8080/hello/Тесак_Ты_был_добряк";
-        String urlAdress = "http://[::1]:8080/hello/Teсак_ты_был_добряк";
-        URLConnection urlConnection = null;
-        URL url = null;
-        InputStreamReader isR = null;
-        BufferedReader bfR = null;
-        try {
-            url = new URL(urlAdress);
-            urlConnection = url.openConnection();
-            isR = new InputStreamReader(urlConnection.getInputStream());
-            bfR = new BufferedReader(isR);
-            System.out.println(bfR.readLine());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            isR.close();
-            bfR.close();
-        }
+//        String urlAdress = "http://[::1]:8080/hello/Teсак_ты_был_добряк";
+//        URLConnection urlConnection = null;
+//        URL url = null;
+//        InputStreamReader isR = null;
+//        BufferedReader bfR = null;
+//        try {
+//            url = new URL(urlAdress);
+//            urlConnection = url.openConnection();
+//            isR = new InputStreamReader(urlConnection.getInputStream());
+//            bfR = new BufferedReader(isR);
+//            System.out.println(bfR.readLine());
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            isR.close();
+//            bfR.close();
+//        }
+        System.out.println((ServerRequest.NAMES));
+        System.out.println((ServerRequest.QUANTITY));
+        System.out.println((ServerRequest.SHAPES));
+        System.out.println((ServerRequest.CLEAR));
     }
+
+
     @Override
     public void send(String message) {
 
@@ -51,6 +57,34 @@ public class ClientHttp implements IClient {
 
     @Override
     public String request(ServerRequest request) {
-        return null;
+        String response = null;
+        String urlAdress = "http://[::1]:8080/" + request.toString();
+        URLConnection urlConnection = null;
+        URL url = null;
+        InputStreamReader isR = null;
+        BufferedReader bfR = null;
+        try {
+            url = new URL(urlAdress);
+            urlConnection = url.openConnection();
+            isR = new InputStreamReader(urlConnection.getInputStream());
+            bfR = new BufferedReader(isR);
+            response = String.valueOf(bfR.read());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                isR.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                bfR.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return response;
     }
 }
