@@ -152,14 +152,6 @@ public class Controller {
     }
     @FXML
     void MouseClickedDrawShapeTCP(MouseEvent event) throws Exception {
-//        double x = event.getX();
-//        double y = event.getY();
-//        var type = choiceTCP.getSelectionModel().getSelectedItem().toString();
-//        var str = type + ";" + x + ";" + y;
-//
-//        if(client.getConnectionStatus())
-//            client.sendShape(str);
-//        FieldDrawTCP.getChildren().add((sol.loadBinTCP("receivedShape.bin")).drawObject());
 
         double x = event.getX();
         double y = event.getY();
