@@ -50,6 +50,7 @@ public class ClientHttp implements IClient {
 
     @Override
     public String request(ServerRequest request) {
+
         return null;
     }
 }
