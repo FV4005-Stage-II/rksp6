@@ -8,6 +8,9 @@ module com.src.rksp6 {
     requires xstream;
     requires spark.core;
     requires org.eclipse.jetty.websocket.api;
+    requires retrofit2;
+    requires retrofit2.converter.scalars;
+    requires java.sql;
 
     opens com.src.rksp6.object;
     exports com.src.rksp6;

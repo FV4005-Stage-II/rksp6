@@ -44,18 +44,15 @@ public class Controller {
 
     @FXML
     private MenuItem Save;
+
     @FXML
     private Pane FieldDraw;
+
     @FXML
     private ComboBox<String> choiceTCP;
+
     @FXML
     private Pane FieldDrawTCP;
-
-    @FXML
-    private ToggleButton StateTCP;
-
-    @FXML
-    private ToggleButton ServerType;
 
     @FXML
     private Button BtnShapesRequest;
@@ -100,11 +97,12 @@ public class Controller {
         type = choice.getSelectionModel().getSelectedItem().toString();
         typeTCP = choiceTCP.getSelectionModel().getSelectedItem().toString();
         typeConection =  ChoiceConnection.getSelectionModel().getSelectedItem().toString();
-        //client = new Client(ServerType.getText());
+        client = new Client(typeConection);
     }
     @FXML
     void selectConnection(ActionEvent event) {
-
+        typeConection = ChoiceConnection.getSelectionModel().getSelectedItem().toString();
+        client.setActiveClient(typeConection);
     }
     @FXML
     void select(ActionEvent event) {
@@ -113,46 +111,6 @@ public class Controller {
     @FXML
     void selectTCP(ActionEvent event) {
         typeTCP = choiceTCP.getSelectionModel().getSelectedItem().toString();
-    }
-    @FXML
-    void setState(MouseEvent event) {
-        if (StateTCP.isSelected()) {
-            boolean answer = false;
-
-            if(!client.getConnectionStatus())
-                answer = client.startConnection("127.0.0.1", 6666);
-
-            if(!answer) {
-                StateTCP.setSelected(false);
-                FieldMessage.getChildren().add(new Text("нет подключения\n"));
-                return;
-            }
-            StateTCP.setText("НА СВЯЗИ");
-        } else {
-            boolean answer = false;
-            if(client.getConnectionStatus())
-                answer = client.stopConnection();
-
-            if(!answer) {
-                StateTCP.setSelected(true);
-                return;
-            }
-
-            StateTCP.setText("ДО СВЯЗИ");
-        }
-    }
-
-    @FXML
-    void changeServerType(MouseEvent event){
-        if(ServerType.isSelected()){
-            ServerType.setText("UDP");
-            StateTCP.setDisable(true);
-        } else {
-            ServerType.setText("TCP");
-            StateTCP.setDisable(false);
-        }
-
-        client.setActiveClient(ServerType.getText());
     }
 
     @FXML

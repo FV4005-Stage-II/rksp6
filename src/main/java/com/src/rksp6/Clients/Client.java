@@ -13,9 +13,11 @@ public class Client {
         clients = new HashMap<String, IClient>();
         var tcp = new ClientTCP("127.0.0.1", 4443);
         var udp = new ClientUDP(4444, "UTF-8");
+        var http = new ClientHttp();
 
         clients.put("TCP", tcp);
         clients.put("UDP", udp);
+        clients.put("HTTP", http);
 
         activeClient = _activeClient;
     }

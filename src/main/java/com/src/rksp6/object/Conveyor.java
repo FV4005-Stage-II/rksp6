@@ -19,4 +19,9 @@ public class Conveyor {
         }
         return shape;
     }
+
+    public objShape createShape(String shapeData){
+        var arr = shapeData.split(";");
+        return createShape(arr[0], Double.parseDouble(arr[1]), Double.parseDouble(arr[2]));
+    }
 }

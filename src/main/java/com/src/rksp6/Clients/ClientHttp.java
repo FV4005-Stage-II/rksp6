@@ -1,42 +1,23 @@
 package com.src.rksp6.Clients;
 
 import com.src.rksp6.Servers.ServerRequest;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.util.Base64;
 
 public class ClientHttp implements IClient {
-
-    public ClientHttp() throws IOException {
-        //String urlAdress = "127.0.0.1:8080/hello/Тесак_Ты_был_добряк";
-//        String urlAdress = "http://[::1]:8080/hello/Teсак_ты_был_добряк";
-//        URLConnection urlConnection = null;
-//        URL url = null;
-//        InputStreamReader isR = null;
-//        BufferedReader bfR = null;
-//        try {
-//            url = new URL(urlAdress);
-//            urlConnection = url.openConnection();
-//            isR = new InputStreamReader(urlConnection.getInputStream());
-//            bfR = new BufferedReader(isR);
-//            System.out.println(bfR.readLine());
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            isR.close();
-//            bfR.close();
-//        }
-        System.out.println(request(ServerRequest.NAMES));
-        System.out.println(request(ServerRequest.QUANTITY));
-        System.out.println(request(ServerRequest.SHAPES));
-        System.out.println(request(ServerRequest.CLEAR));
+    private Retrofit retrofit;
+    private static Retro retro;
+    public ClientHttp() {
+        retrofit = new Retrofit.Builder().baseUrl("http://localhost:8080")
+                .addConverterFactory(ScalarsConverterFactory.create()).build();
+        retro = retrofit.create(Retro.class);
     }
 
 
@@ -52,39 +33,38 @@ public class ClientHttp implements IClient {
 
     @Override
     public void send(Object object) {
-
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutput out = new ObjectOutputStream(bos)) {
+            out.writeObject(object);
+            var response = retro.uploadShape(
+                    Base64.getEncoder().encodeToString(bos.toByteArray())
+            ).execute();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public String request(ServerRequest request) {
-        String response = null;
-        String urlAdress = "http://[::1]:8080/" + request.toString();
-        URLConnection urlConnection = null;
-        URL url = null;
-        InputStreamReader isR = null;
-        BufferedReader bfR = null;
+        Response<String> response = null;
         try {
-            url = new URL(urlAdress);
-            urlConnection = url.openConnection();
-            isR = new InputStreamReader(urlConnection.getInputStream());
-            bfR = new BufferedReader(isR);
-            response = bfR.readLine();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                isR.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            switch (request.toString()) {
+                case "SHAPES" -> {
+                    response = retro.getShapes().execute();
+                }
+                case "NAMES" -> {
+                    response = retro.getNames().execute();
+                }
+                case "CLEAR" -> {
+                    response = retro.clear().execute();
+                }
+                case "QUANTITY" -> {
+                    response = retro.getQuantity().execute();
+                }
             }
-            try {
-                bfR.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (Exception ex){
+            ex.printStackTrace();
         }
-        return response;
+
+        return response.body();
     }
 }
